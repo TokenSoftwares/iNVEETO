@@ -5,9 +5,9 @@ import { ui } from "@/content/ui";
 import { href, tr, type Locale, type T } from "@/content/i18n";
 import { SafeImg } from "@/components/ui/SafeImg";
 
-export function Stars() {
+export function Stars({ light, locale = "en" }: { light?: boolean; locale?: Locale }) {
   return (
-    <span className="flex gap-0.5 text-brand" aria-label="5 / 5">
+    <span className={`flex gap-0.5 ${light ? "text-mint" : "text-brand"}`} role="img" aria-label={locale === "ar" ? "تقييم 5 من 5" : "Rated 5 out of 5"}>
       {Array.from({ length: 5 }).map((_, i) => (
         <Star key={i} size={15} className="fill-current" aria-hidden />
       ))}
@@ -32,9 +32,10 @@ export function StoriesTeaser({ locale }: { locale: Locale }) {
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.45fr_1fr]">
-          <figure className="relative overflow-hidden rounded-[28px] bg-brand-deep p-8 text-white sm:p-12">
-            <div className="absolute -end-24 -top-24 size-72 rounded-full bg-brand/40 blur-3xl" aria-hidden />
-            <Stars />
+          <figure className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-brand via-brand-strong to-[#5a3f86] p-8 text-white sm:p-12">
+            <div className="absolute -end-24 -top-24 size-72 rounded-full bg-white/15 blur-3xl" aria-hidden />
+            <div className="absolute -bottom-20 -start-16 size-56 rounded-full bg-mint/25 blur-3xl" aria-hidden />
+            <Stars light locale={locale} />
             <blockquote className="relative mt-6 text-[1.35rem] font-light leading-[1.5] sm:text-[1.6rem]">
               “{t(alQuds.quote!.text)}”
             </blockquote>
@@ -44,13 +45,13 @@ export function StoriesTeaser({ locale }: { locale: Locale }) {
               )}
               <span>
                 <span className="block font-medium">{t(alQuds.quote!.name)}</span>
-                <span className="block text-sm text-white/70">{t(alQuds.quote!.role)}</span>
+                <span className="block text-sm text-white/85">{t(alQuds.quote!.role)}</span>
               </span>
             </figcaption>
           </figure>
 
           <figure className="flex flex-col rounded-[28px] bg-mist p-8 ring-1 ring-line sm:p-10">
-            <Stars />
+            <Stars locale={locale} />
             <blockquote className="mt-6 text-[1.15rem] leading-relaxed text-ink">“{t(aba.quote!.text)}”</blockquote>
             <figcaption className="mt-6">
               <span className="block font-medium text-ink">{t(aba.quote!.name)}</span>

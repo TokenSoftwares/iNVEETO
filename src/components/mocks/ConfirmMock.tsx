@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { CheckCircle2, ScanLine, Crown, RotateCcw } from "lucide-react";
 import { DemoWindow, Avatar, StatusChip, useSequence } from "./shared";
+import { sample } from "./sampleData";
 import { useLocale, useT } from "@/lib/locale-context";
 import { useReducedMotion } from "@/lib/hooks";
 
@@ -59,7 +60,7 @@ export function ConfirmMock({ active }: { active: boolean }) {
   const checked = step >= 3;
 
   return (
-    <DemoWindow title={t({ en: "Check-in · Ballroom B", ar: "تسجيل الحضور · القاعة B" })}>
+    <DemoWindow title={t({ en: `Check-in · ${sample.event.en}`, ar: `تسجيل الحضور · ${sample.event.ar}` })}>
       <div className="grid gap-4 sm:grid-cols-[150px_1fr]">
         <div className="relative mx-auto aspect-square w-[150px] overflow-hidden rounded-2xl bg-white p-3 ring-1 ring-line">
           <QrPattern />
@@ -107,9 +108,14 @@ export function ConfirmMock({ active }: { active: boolean }) {
 
           <div className="grid grid-cols-3 gap-2 text-center">
             {[
-              { v: 41 + (checked ? 1 : 0), l: { en: "Checked in", ar: "تم تسجيلهم" }, c: "text-ok" },
-              { v: 6, l: { en: "Pending", ar: "قيد الانتظار" }, c: "text-wait" },
-              { v: 5, l: { en: "VIP", ar: "شخصيات مهمة" }, c: "text-brand-deep" },
+              // checked in + not yet arrived always equals the 247 confirmed guests
+              { v: checked ? sample.checkin.after : sample.checkin.before, l: { en: "Checked in", ar: "سُجّل حضورهم" }, c: "text-ok" },
+              {
+                v: sample.rsvp.confirmed - (checked ? sample.checkin.after : sample.checkin.before),
+                l: { en: "Not yet arrived", ar: "لم يصلوا بعد" },
+                c: "text-wait",
+              },
+              { v: sample.checkin.walkIns, l: { en: "Walk-ins", ar: "غير مدعوين" }, c: "text-brand-deep" },
             ].map((s, i) => (
               <div key={i} className="rounded-xl bg-white py-2.5 ring-1 ring-line">
                 <motion.p key={s.v} initial={{ y: -6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className={`text-xl font-semibold tabular-nums ${s.c}`}>
@@ -122,7 +128,7 @@ export function ConfirmMock({ active }: { active: boolean }) {
 
           <div className="flex items-center justify-between gap-2 text-xs text-slate">
             <span aria-live="polite">
-              {t({ en: `Check-in ${session} of 6 · multi-session day`, ar: `تسجيل الحضور ${session} من 6 · يوم متعدد الجلسات` })}
+              {t({ en: `Layla's check-in ${session} of 6 today`, ar: `تسجيل حضور ليلى ${session} من 6 اليوم` })}
             </span>
             <button
               type="button"

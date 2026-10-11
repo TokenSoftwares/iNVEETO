@@ -92,3 +92,15 @@ Performance and accessibility:
 - No WebGL → a static SVG of the same network.
 - `prefers-reduced-motion` → formations snap, nothing drifts, demos show their final state.
 - The canvas is decorative (`aria-hidden`); all content is real HTML.
+
+## Inquiry form
+
+`POST /api/inquiry` validates input, checks the request origin, rate-limits by IP (5 per 10 minutes) and traps spam bots (a honeypot field plus a minimum fill time). The form only appears once a delivery provider is configured in the Vercel environment variables:
+
+- **Email via Resend:** `INQUIRY_RESEND_API_KEY`, `INQUIRY_FROM`, and optionally `INQUIRY_TO` (default info@inveeto.com)
+- **Webhook:** `INQUIRY_WEBHOOK_URL` (must be https) and optionally `INQUIRY_WEBHOOK_SECRET`, which adds an HMAC-SHA256 signature in the `X-Inveeto-Signature` header
+- `INQUIRY_ALLOWED_ORIGINS` (optional, comma-separated) for any extra allowed origins
+
+Redeploy after setting these. Until then, the contact page shows only the official email and WhatsApp channels.
+
+See `BUSINESS-APPROVAL.md` for the items still awaiting a business decision before launch.

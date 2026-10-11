@@ -82,7 +82,7 @@ export const modules: Module[] = [
             title: { en: "Contact & organization tagging", ar: "وسوم جهات الاتصال والمؤسسات" },
             desc: {
               en: "Label contacts with unlimited free-text tags so you can find, filter and segment the right people in seconds.",
-              ar: "صنّف جهات الاتصال بوسوم نصية حرة غير محدودة لتجد الأشخاص المناسبين وتفلترهم وتقسّمهم في ثوانٍ.",
+              ar: "صنّف جهات الاتصال بوسوم نصية حرة غير محدودة لتجد الأشخاص المناسبين وتصنّفهم وتقسّمهم إلى شرائح في ثوانٍ.",
             },
           },
           {
@@ -133,7 +133,7 @@ export const modules: Module[] = [
         items: [
           {
             id: "filtering",
-            title: { en: "Advanced filtering & segmentation", ar: "فلترة وتقسيم متقدم" },
+            title: { en: "Advanced filtering & segmentation", ar: "تصفية متقدمة وتقسيم إلى شرائح" },
             desc: {
               en: "Find exactly the right people using tags, job title, company, event history or custom fields, instantly.",
               ar: "اعثر على الأشخاص المناسبين تمامًا باستخدام الوسوم أو المسمى الوظيفي أو الشركة أو سجل الفعاليات أو الحقول المخصصة، فورًا.",
@@ -382,7 +382,7 @@ export const modules: Module[] = [
             title: { en: "QR code check-in", ar: "تسجيل الحضور برمز QR" },
             desc: {
               en: "Eliminate long queues and manual lists. Run controlled check-in at the door, or let attendees check themselves in with a personal QR code.",
-              ar: "تخلّص من الطوابير الطويلة والقوائم اليدوية. أدِر تسجيل حضور محكومًا عند الباب، أو دع الحضور يسجّلون بأنفسهم برمز QR شخصي.",
+              ar: "تخلّص من الطوابير الطويلة والقوائم اليدوية. أدِر تسجيل الحضور عند الباب بإشراف فريقك، أو دع الحضور يسجّلون بأنفسهم برمز QR شخصي.",
             },
           },
           {
@@ -400,7 +400,7 @@ export const modules: Module[] = [
             title: { en: "Check-in cancellation", ar: "إلغاء تسجيل الحضور" },
             desc: {
               en: "Checked in the wrong guest? Cancel it in one click and keep your attendance numbers accurate.",
-              ar: "سجّلت حضور الضيف الخطأ؟ ألغِه بنقرة واحدة وحافظ على دقة أرقام الحضور.",
+              ar: "سجّلت حضور ضيف بالخطأ؟ ألغِه بنقرة واحدة وحافظ على دقة أرقام الحضور.",
             },
           },
           {
@@ -544,10 +544,10 @@ export const modules: Module[] = [
         items: [
           {
             id: "filters",
-            title: { en: "Tag, classification & custom filters", ar: "فلاتر الوسوم والتصنيفات والحقول المخصصة" },
+            title: { en: "Tag, classification & custom filters", ar: "التصفية حسب الوسوم والتصنيفات والحقول المخصصة" },
             desc: {
               en: "Send only to who matters: target by tags, classifications, participation history or custom filters so every message is relevant.",
-              ar: "أرسل لمن يهمّ فقط: استهدف حسب الوسوم أو التصنيفات أو سجل المشاركة أو فلاتر مخصصة لتكون كل رسالة في مكانها.",
+              ar: "أرسل لمن يهمّ فقط: استهدف حسب الوسوم أو التصنيفات أو سجل المشاركة أو عوامل تصفية مخصصة لتكون كل رسالة في مكانها.",
             },
           },
           {
@@ -583,7 +583,7 @@ export const modules: Module[] = [
 export const sharedCapabilities: { id: string; title: T; desc: T }[] = [
   {
     id: "search",
-    title: { en: "Search & filtering", ar: "البحث والفلترة" },
+    title: { en: "Search & filtering", ar: "البحث والتصفية" },
     desc: {
       en: "Find anyone or anything across contacts, events and campaigns in seconds.",
       ar: "اعثر على أي شخص أو أي شيء عبر جهات الاتصال والفعاليات والحملات في ثوانٍ.",

@@ -36,7 +36,7 @@ export default async function VenuesPage({ params }: PageProps<"/[locale]/use-ca
         </figcaption>
         <div className="mt-3 grid grid-cols-3 gap-2 text-center">
           {[
-            [42, { en: "Checked in", ar: "تم تسجيلهم" }],
+            [42, { en: "Checked in", ar: "سُجّل حضورهم" }],
             [6, { en: "Pending", ar: "قيد الانتظار" }],
             [5, { en: "VIP", ar: "شخصيات مهمة" }],
           ].map(([v, l], k) => (

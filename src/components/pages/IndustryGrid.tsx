@@ -21,6 +21,7 @@ export function IndustryGrid() {
 
   return (
     <div id="use-cases">
+      <h2 className="sr-only">{t(ui.usecases.all)}</h2>
       <div role="group" aria-label={t(ui.usecases.filter)} className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0">
         <button type="button" aria-pressed={filter === "all"} onClick={() => setFilter("all")} className={pill(filter === "all")}>
           {t(ui.usecases.all)}

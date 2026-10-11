@@ -16,6 +16,8 @@ export type Story = {
   quote?: { text: T; name: T; role: T; rating: 5 };
   metric?: { value: string; label: T };
   tags?: T[];
+  /** What the organization used, as stated in its own story (links to the feature module). */
+  used: { label: T; module: "addressBook" | "events" | "campaigns" }[];
   images: { src: string; alt: T }[];
   video?: string;
 };
@@ -23,7 +25,7 @@ export type Story = {
 const wp = (p: string) => `https://inveeto.com/wp-content/uploads/${p}`;
 
 export const storiesIntro = {
-  title: { en: "Every event below was managed with iNVEETO", ar: "كل فعالية أدناه استخدمت إنفييتو" },
+  title: { en: "Every event below was managed with iNVEETO", ar: "كل فعالية أدناه استخدمت إنفيتو" },
   body: {
     en: "No simulated results. No stock photos. Real organizations with real events.",
     ar: "لا نتائج محاكاة. لا صور افتراضية. منظمات حقيقية بفعاليات حقيقية.",
@@ -41,7 +43,7 @@ export const stories: Story[] = [
     },
     summary: {
       en: "ABA Technology used iNVEETO to manage attendee communication, support self check-in and streamline event operations for more than 500 invitees across two days.",
-      ar: "استخدمت ABA Technology منصة إنفييتو لإدارة التواصل مع الحضور ودعم التسجيل الذاتي للحضور لأكثر من 500 مدعو على مدار يومين.",
+      ar: "استخدمت ABA Technology منصة إنفيتو لإدارة التواصل مع الحضور ودعم التسجيل الذاتي للحضور لأكثر من 500 مدعو على مدار يومين.",
     },
     quote: {
       text: {
@@ -53,6 +55,11 @@ export const stories: Story[] = [
       rating: 5,
     },
     metric: { value: "500+", label: { en: "Invitees across 2 days", ar: "مدعو على مدار يومين" } },
+    used: [
+      { label: { en: "Attendee emails", ar: "رسائل الحضور" }, module: "campaigns" },
+      { label: { en: "Self check-in", ar: "تسجيل الحضور الذاتي" }, module: "events" },
+      { label: { en: "Two-day event operations", ar: "إدارة فعالية من يومين" }, module: "events" },
+    ],
     images: [],
     video: wp("2026/09/Plex-2026-V.4.mp4"),
   },
@@ -66,17 +73,21 @@ export const stories: Story[] = [
     },
     summary: {
       en: "The Moroccan Studies Chair used iNVEETO to organize a university lecture, managing guest attendance and sending a follow-up survey after the event.",
-      ar: "استخدم كرسي الدراسات المغربية منصة إنفييتو لتنظيم محاضرة جامعية، بما في ذلك تسجيل الحضور وإرسال استبيان للمتابعة بعد الفعالية.",
+      ar: "استخدم كرسي الدراسات المغربية منصة إنفيتو لتنظيم محاضرة جامعية، بما في ذلك تسجيل الحضور وإرسال استبيان للمتابعة بعد الفعالية.",
     },
     quote: {
       text: {
         en: "Inveeto contributed to the better organization and follow-up after the event through effective attendance registration and sending follow-up survey after the event.",
-        ar: "ساهمت إنفييتو في تحسين تنظيم الفعالية والمتابعة بعدها من خلال تسجيل الحضور بفعالية وإرسال استبيان للمتابعة بعد الفعالية.",
+        ar: "ساهمت إنفيتو في تحسين تنظيم الفعالية والمتابعة بعدها من خلال تسجيل الحضور بفعالية وإرسال استبيان للمتابعة بعد الفعالية.",
       },
       name: { en: "Dr. Safa Nassereldin", ar: "د. صفاء نصر الدين" },
       role: { en: "President, Moroccan Studies Chair, Al-Quds University", ar: "رئيسة كرسي الدراسات المغربية | جامعة القدس" },
       rating: 5,
     },
+    used: [
+      { label: { en: "Attendance registration", ar: "تسجيل الحضور" }, module: "events" },
+      { label: { en: "Post-event follow-up survey", ar: "استبيان متابعة بعد الفعالية" }, module: "campaigns" },
+    ],
     images: [{ src: wp("2026/09/IMG_8098-scaled.jpg"), alt: { en: "Al-Quds University Moroccan Studies Chair lecture", ar: "محاضرة كرسي الدراسات المغربية في جامعة القدس" } }],
   },
   {
@@ -89,12 +100,17 @@ export const stories: Story[] = [
     },
     summary: {
       en: "iNVEETO was the official Event Tech Sponsor for SehhaTech 2025, powering online pre-registration, on-site check-in and organized contact lists for post-event follow-up.",
-      ar: "كانت إنفييتو الراعي التقني الرسمي لفعالية صحة تيك 2025، فعالية وطنية حول التحول الرقمي في قطاع الصحة. دعمت إنفييتو التسجيل المسبق عبر الإنترنت، وتسجيل الحضور في الموقع، وتنظيم قوائم جهات الاتصال للمتابعة بعد الفعالية.",
+      ar: "كانت إنفيتو الراعي التقني الرسمي لفعالية صحة تيك 2025، فعالية وطنية حول التحول الرقمي في قطاع الصحة. دعمت إنفيتو التسجيل المسبق عبر الإنترنت، وتسجيل الحضور في الموقع، وتنظيم قوائم جهات الاتصال للمتابعة بعد الفعالية.",
     },
+    used: [
+      { label: { en: "Online pre-registration", ar: "التسجيل المسبق عبر الإنترنت" }, module: "events" },
+      { label: { en: "On-site check-in", ar: "تسجيل الحضور في الموقع" }, module: "events" },
+      { label: { en: "Contact lists for follow-up", ar: "قوائم جهات الاتصال للمتابعة" }, module: "addressBook" },
+    ],
     images: [
       { src: wp("2026/09/IMG_8614-scaled.jpg"), alt: { en: "SehhaTech 2025", ar: "صحة تيك 2025" } },
       { src: wp("2026/09/IMG_8590-scaled.jpg"), alt: { en: "SehhaTech 2025 conference", ar: "مؤتمر صحة تيك 2025" } },
-      { src: wp("2026/09/20251208_085728-scaled.jpg"), alt: { en: "iNVEETO at SehhaTech", ar: "إنفييتو في صحة تيك" } },
+      { src: wp("2026/09/20251208_085728-scaled.jpg"), alt: { en: "iNVEETO at SehhaTech", ar: "إنفيتو في صحة تيك" } },
     ],
   },
   {
@@ -104,8 +120,9 @@ export const stories: Story[] = [
     context: { en: "PEF, registration support for an introductory program session", ar: "PEF | دعم التسجيل لجلسة برنامج تعريفية" },
     summary: {
       en: "The Palestinian Employment Fund used iNVEETO to support participant registration for an introductory program session, ensuring a smooth and well-organized experience.",
-      ar: "استخدم صندوق التشغيل الفلسطيني منصة إنفييتو لدعم تسجيل المشاركين في جلسة تعريفية، مما ساعد على تنظيم عملية التسجيل وتسهيل تجربة المشاركين.",
+      ar: "استخدم صندوق التشغيل الفلسطيني منصة إنفيتو لدعم تسجيل المشاركين في جلسة تعريفية، مما ساعد على تنظيم عملية التسجيل وتسهيل تجربة المشاركين.",
     },
+    used: [{ label: { en: "Participant registration", ar: "تسجيل المشاركين" }, module: "events" }],
     images: [
       { src: wp("2026/09/WhatsApp-Image-2025-11-13-at-12.08.39-PM-2.jpeg"), alt: { en: "PEF session", ar: "جلسة صندوق التشغيل" } },
       { src: wp("2026/09/WhatsApp-Image-2025-11-13-at-12.08.39-PM-3.jpeg"), alt: { en: "PEF participants", ar: "المشاركون في جلسة صندوق التشغيل" } },
@@ -118,7 +135,7 @@ export const stories: Story[] = [
     context: { en: "Iftar 2026, event management", ar: "إفطار 2026 | إدارة الفعالية" },
     summary: {
       en: "BYU Arab Student Association used iNVEETO for Iftar 2026 to manage contacts, invitations and QR check-in. Tags structured guest groups, and duplicate detection kept the contact list clean and accurate.",
-      ar: "استخدمت جمعية الطلاب العرب في BYU منصة إنفييتو لإدارة جهات الاتصال والدعوات وتسجيل الحضور عبر رمز QR. وساعدت العلامات على تنظيم مجموعات الضيوف، كما ساهمت ميزة كشف التكرار في الحفاظ على قائمة جهات اتصال منظمة وخالية من التكرار.",
+      ar: "استخدمت جمعية الطلاب العرب في BYU منصة إنفيتو لإدارة جهات الاتصال والدعوات وتسجيل الحضور عبر رمز QR. وساعدت العلامات على تنظيم مجموعات الضيوف، كما ساهمت ميزة كشف التكرار في الحفاظ على قائمة جهات اتصال منظمة وخالية من التكرار.",
     },
     metric: { value: "350+", label: { en: "Attendees managed", ar: "من الحضور" } },
     tags: [
@@ -126,16 +143,22 @@ export const stories: Story[] = [
       { en: "Contact tagging", ar: "تصنيف جهات الاتصال" },
       { en: "Duplicate detection", ar: "كشف التكرار" },
     ],
+    used: [
+      { label: { en: "Contacts and tags", ar: "جهات الاتصال والوسوم" }, module: "addressBook" },
+      { label: { en: "Invitations", ar: "الدعوات" }, module: "events" },
+      { label: { en: "QR check-in", ar: "تسجيل الحضور برمز QR" }, module: "events" },
+      { label: { en: "Duplicate detection", ar: "كشف التكرار" }, module: "addressBook" },
+    ],
     images: [],
   },
 ];
 
 export const teamMessage = {
-  title: { en: "Why we built iNVEETO", ar: "لماذا بنينا إنفييتو؟" },
+  title: { en: "Why we built iNVEETO", ar: "لماذا بنينا إنفيتو؟" },
   body: {
     en: "Our team shares the problem iNVEETO was built to solve: the disconnect between contact lists, invitations and attendance tracking that most organizers manage across separate tools.",
-    ar: "يشارك فريقنا المشكلة التي بُنيت إنفييتو لمعالجتها، وهي تشتّت قوائم جهات الاتصال والدعوات ومتابعة الحضور بين أدوات مختلفة يستخدمها منظمو الفعاليات.",
+    ar: "يشارك فريقنا المشكلة التي بُنيت إنفيتو لمعالجتها، وهي تشتّت قوائم جهات الاتصال والدعوات ومتابعة الحضور بين أدوات مختلفة يستخدمها منظمو الفعاليات.",
   },
   video: wp("2026/09/Inveeto.mp4"),
-  disclaimer: { en: "Message from the iNVEETO team, not a customer testimonial.", ar: "رسالة من فريق إنفييتو، وليست شهادة من عميل." },
+  disclaimer: { en: "Message from the iNVEETO team, not a customer testimonial.", ar: "رسالة من فريق إنفيتو، وليست شهادة من عميل." },
 };

@@ -174,7 +174,7 @@ export function HeroStory() {
   const labels = [
     { title: t({ en: "Address Book", ar: "دفتر العناوين" }), detail: t({ en: "Names stored in two languages", ar: "أسماء محفوظة بلغتين" }) },
     { title: t({ en: "Events", ar: "الفعاليات" }), detail: t({ en: "Up to 6 check-ins per event", ar: "حتى 6 تسجيلات حضور لكل فعالية" }) },
-    { title: t({ en: "Campaigns", ar: "الحملات" }), detail: t({ en: "Resend to non-openers in one click", ar: "إعادة الإرسال لغير الفاتحين بنقرة" }) },
+    { title: t({ en: "Campaigns", ar: "الحملات" }), detail: t({ en: "Resend to non-openers in one click", ar: "إعادة الإرسال لمن لم يفتح الرسالة بنقرة" }) },
   ];
 
   const scrollToStep = (i: number) => {
@@ -226,7 +226,8 @@ export function HeroStory() {
         <div data-step="0" className="flex min-h-[100svh] items-end pb-14 pt-28 lg:items-center lg:pb-16">
           <div className="shell">
             <div className="max-w-[600px]">
-              <p className="hero-fade mb-7 flex flex-wrap gap-x-3 text-[0.95rem] font-medium" aria-label={tagline[locale].join(" ")}>
+              <p className="hero-fade mb-7 flex flex-wrap gap-x-3 text-[0.95rem] font-medium">
+                <span className="sr-only">{tagline[locale].join(" ")}</span>
                 {tagline[locale].map((w, i) => (
                   <span key={i} className="hero-verb text-lilac" aria-hidden>
                     {w}
@@ -245,7 +246,7 @@ export function HeroStory() {
                 <LinkButton href={site.links.trial} magnetic>
                   {t(ui.cta.trial)}
                 </LinkButton>
-                <LinkButton href={href(locale, "/#modules")} variant="secondary">
+                <LinkButton href="#chapter-organize" variant="secondary">
                   {t(ui.cta.explore)}
                 </LinkButton>
               </div>

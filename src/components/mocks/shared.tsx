@@ -55,19 +55,12 @@ export function DemoWindow({ title, children, className = "", aside }: { title: 
   );
 }
 
-/** Sample people used across demos (names from the samples on inveeto.com; organizations generic). */
-export const people: { id: string; en: string; ar: string; org: T; initials: string }[] = [
-  { id: "layla", en: "Layla Nasser", ar: "ليلى ناصر", org: { en: "City University", ar: "جامعة المدينة" }, initials: "LN" },
-  { id: "ahmed", en: "Ahmed Al-Rashid", ar: "أحمد الراشد", org: { en: "Ministry of Trade", ar: "وزارة التجارة" }, initials: "AR" },
-  { id: "sara", en: "Sara Khalil", ar: "سارة خليل", org: { en: "Development agency", ar: "وكالة تنموية" }, initials: "SK" },
-  { id: "omar", en: "Omar Mansour", ar: "عمر منصور", org: { en: "Grand hotel", ar: "فندق جراند" }, initials: "OM" },
-  { id: "rania", en: "Rania Haddad", ar: "رانيا حداد", org: { en: "Chamber of Commerce", ar: "غرفة التجارة" }, initials: "RH" },
-];
+export { people } from "./sampleData";
 
 export function Avatar({ initials, tone = 0 }: { initials: string; tone?: number }) {
   const tones = ["bg-lavender text-brand-deep", "bg-[#ebe4f5] text-brand-strong", "bg-[#f3eff9] text-brand"];
   return (
-    <span className={`grid size-9 shrink-0 place-items-center rounded-full text-xs font-semibold ${tones[tone % 3]}`} aria-hidden>
+    <span className={`avatar grid size-9 shrink-0 place-items-center rounded-full text-xs font-semibold ${tones[tone % 3]}`} aria-hidden>
       {initials}
     </span>
   );

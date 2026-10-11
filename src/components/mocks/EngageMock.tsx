@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { Users, Mail, Send, ArrowRight, ArrowLeft } from "lucide-react";
 import { DemoWindow, useSequence } from "./shared";
+import { attendees, sample } from "./sampleData";
 import { useLocale, useT } from "@/lib/locale-context";
 
 export function EngageMock({ active }: { active: boolean }) {
@@ -19,8 +20,9 @@ export function EngageMock({ active }: { active: boolean }) {
     if (!active) setResent(false);
   }
 
-  const opened = resent ? 214 : 186;
-  const total = 247;
+  const { opened: o1, openedAfterResend: o2, responded, pledged, followUp } = sample.campaign;
+  const opened = resent ? o2 : o1;
+  const total = attendees; // 226 confirmed guests who attended + 6 walk-ins
 
   return (
     <DemoWindow title={t({ en: "Campaign · Thank you for joining", ar: "حملة · شكرًا لحضوركم" })}>
@@ -29,8 +31,13 @@ export function EngageMock({ active }: { active: boolean }) {
           <p className="flex items-center gap-2 text-xs text-slate">
             <Users size={14} aria-hidden /> {t({ en: "Audience", ar: "الجمهور" })}
           </p>
-          <p className="mt-1 text-sm font-medium text-ink">{t({ en: "Annual Conference guest list", ar: "قائمة ضيوف المؤتمر السنوي" })}</p>
-          <p className="text-xs text-slate">{t({ en: "247 confirmed guests", ar: "247 ضيفًا مؤكدًا" })}</p>
+          <p className="mt-1 text-sm font-medium text-ink">{t({ en: "Annual Conference attendance list", ar: "قائمة حضور المؤتمر السنوي" })}</p>
+          <p className="text-xs tabular-nums text-slate">
+            {t({
+              en: `${total} attendees, including ${sample.attendance.walkIns} walk-ins`,
+              ar: `${total} حاضرًا، منهم ${sample.attendance.walkIns} غير مدعوين`,
+            })}
+          </p>
         </motion.div>
         <motion.span
           initial={false}
@@ -51,7 +58,7 @@ export function EngageMock({ active }: { active: boolean }) {
 
       <div className="mt-4 rounded-xl bg-white p-4 ring-1 ring-line" aria-live="polite">
         <div className="flex items-baseline justify-between">
-          <p className="text-sm text-slate">{t({ en: "Opened", ar: "فُتحت" })}</p>
+          <p className="text-sm text-slate">{t({ en: "Opened", ar: "فتحوا الرسالة" })}</p>
           <p className="text-sm tabular-nums text-ink">
             <span className="text-lg font-semibold text-brand-deep">{step >= 3 ? opened : 0}</span> / {total}
           </p>
@@ -65,9 +72,9 @@ export function EngageMock({ active }: { active: boolean }) {
           />
         </div>
         <div className="mt-3 flex flex-wrap gap-1.5">
-          <span className="chip bg-lavender text-brand-deep">{t({ en: "Responded 92", ar: "ردّوا 92" })}</span>
-          <span className="chip bg-ok-soft text-ok">{t({ en: "Pledged 17", ar: "تعهّدوا 17" })}</span>
-          <span className="chip bg-wait-soft text-wait">{t({ en: "Needs follow-up 23", ar: "بحاجة إلى متابعة 23" })}</span>
+          <span className="chip bg-lavender text-brand-deep tabular-nums">{t({ en: `Responded: ${responded}`, ar: `ردّوا: ${responded}` })}</span>
+          <span className="chip bg-ok-soft text-ok tabular-nums">{t({ en: `Pledged: ${pledged}`, ar: `تعهّدوا: ${pledged}` })}</span>
+          <span className="chip bg-wait-soft text-wait tabular-nums">{t({ en: `Needs follow-up: ${followUp}`, ar: `بحاجة إلى متابعة: ${followUp}` })}</span>
         </div>
       </div>
 
@@ -75,7 +82,7 @@ export function EngageMock({ active }: { active: boolean }) {
         <p className="text-xs text-slate">
           {resent
             ? t({ en: "Resent to non-openers. No duplicate campaign needed.", ar: "أُعيد الإرسال لمن لم يفتحوا الرسالة، دون حملة مكررة." })
-            : t({ en: `${total - opened} guests haven't opened it yet.`, ar: `${total - opened} ضيفًا لم يفتحوا الرسالة بعد.` })}
+            : t({ en: `${total - opened} attendees haven't opened it yet.`, ar: `${total - opened} حاضرًا لم يفتحوا الرسالة بعد.` })}
         </p>
         <button
           type="button"
@@ -84,7 +91,7 @@ export function EngageMock({ active }: { active: boolean }) {
           className="btn btn-primary btn-sm shrink-0 disabled:opacity-50"
         >
           <Send size={14} aria-hidden className="rtl:-scale-x-100" />
-          {resent ? t({ en: "Resent", ar: "أُعيد الإرسال" }) : t({ en: "Resend to non-openers", ar: "أعد الإرسال لغير الفاتحين" })}
+          {resent ? t({ en: "Resent", ar: "أُعيد الإرسال" }) : t({ en: "Resend to non-openers", ar: "أعد الإرسال لمن لم يفتحوا الرسالة" })}
         </button>
       </div>
     </DemoWindow>

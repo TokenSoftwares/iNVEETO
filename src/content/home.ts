@@ -4,8 +4,12 @@ import type { T } from "./i18n";
 
 export const tagline = {
   en: ["Organize.", "Select.", "Invite.", "Confirm."],
-  /** AR: official "نظّم. حدّد. ادعو. تأكّد" — "ادعو" kept as published; see OPEN-QUESTIONS.md #7 */
-  ar: ["نظّم.", "حدّد.", "ادعو.", "تأكّد."],
+  /**
+   * AR proofread: the published slogan reads "نظّم. حدّد. ادعو. تأكّد". "ادعو" is not the correct
+   * imperative (it should be "ادعُ"), so the site uses the corrected form. Needs sign-off:
+   * BUSINESS-APPROVAL.md #3.
+   */
+  ar: ["نظّم.", "حدّد.", "ادعُ.", "تأكّد."],
 };
 
 export const hero = {
@@ -54,7 +58,7 @@ export const chapters: { id: string; verb: T; title: T; body: T; points: T[] }[]
     title: { en: "The right people for every invitation", ar: "الأشخاص المناسبون لكل دعوة" },
     body: {
       en: "Filter by tag, job title, company, event history or custom field. Classify guests as VIP, Speaker or Guest, then save the segment for next time.",
-      ar: "فلتر حسب الوسم أو المسمى الوظيفي أو الشركة أو سجل الفعاليات أو الحقول المخصصة. صنّف الضيوف كشخصية مهمة أو متحدث أو ضيف، ثم احفظ الشريحة للمرة القادمة.",
+      ar: "صفِّ جهات الاتصال حسب الوسم أو المسمى الوظيفي أو الشركة أو سجل الفعاليات أو الحقول المخصصة. صنّف الضيوف كشخصية مهمة أو متحدث أو ضيف، ثم احفظ الشريحة للمرة القادمة.",
     },
     points: [
       { en: "Role-based invitation selection", ar: "اختيار المدعوين حسب الدور" },
@@ -108,7 +112,7 @@ export const unified = {
   title: { en: "One platform. Every relationship, every event, every follow-up.", ar: "منصة واحدة. كل علاقة، وكل فعالية، وكل متابعة." },
   body: {
     en: "Every module feeds the next, so nothing you build gets rebuilt. A contact you tag today becomes a guest tomorrow and a campaign audience next month, with their full participation history on one profile.",
-    ar: "كل وحدة تغذّي التالية، فلا يُعاد بناء شيء أنشأته. جهة الاتصال التي تَسِمها اليوم تصبح ضيفًا غدًا وجمهور حملة الشهر القادم، مع سجل مشاركتها الكامل في ملف واحد.",
+    ar: "كل وحدة تغذّي التالية، فلا يُعاد بناء شيء أنشأته. جهة الاتصال التي تضيف إليها وسمًا اليوم تصبح ضيفًا غدًا وجمهور حملة الشهر القادم، مع سجل مشاركتها الكامل في ملف واحد.",
   },
 };
 

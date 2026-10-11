@@ -8,6 +8,7 @@ const Linkedin = ({ size = 18 }: { size?: number }) => (
 );
 import { Logo } from "@/components/ui/Logo";
 import { ui } from "@/content/ui";
+import { tagline } from "@/content/home";
 import { site } from "@/content/site";
 import { href, tr, type Locale } from "@/content/i18n";
 
@@ -93,7 +94,7 @@ export function Footer({ locale }: { locale: Locale }) {
       </div>
       <div className="shell flex flex-col gap-2 border-t border-line py-6 text-sm text-slate sm:flex-row sm:justify-between">
         <p>{t(ui.footer.rights)}</p>
-        <p dir="ltr" className="sm:text-end">Organize. Select. Invite. Confirm.</p>
+        <p className="sm:text-end">{tagline[locale].join(" ")}</p>
       </div>
     </footer>
   );

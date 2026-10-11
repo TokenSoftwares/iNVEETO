@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero } from "@/components/pages/PageHero";
 import { Stars } from "@/components/home/StoriesTeaser";
 import { FinalCta } from "@/components/home/ContactSection";
@@ -22,8 +23,19 @@ export default async function StoriesPage({ params }: PageProps<"/[locale]/custo
       <PageHero title={t(storiesIntro.title)} body={t(storiesIntro.body)}>
         <div className="flex flex-wrap gap-3">
           <LinkButton href={site.links.trial} magnetic>{t(ui.cta.trial)}</LinkButton>
-          <LinkButton href={href(locale, "/contact")} variant="secondary">{t(ui.cta.demo)}</LinkButton>
+          <LinkButton href={href(locale, "/contact?topic=demo")} variant="secondary">{t(ui.cta.demo)}</LinkButton>
         </div>
+        <nav aria-label={t(ui.stories.index)} className="mt-12">
+          <ol className="flex flex-wrap gap-2">
+            {stories.map((s) => (
+              <li key={s.id}>
+                <a href={`#${s.id}`} className="chip h-10 bg-white px-4 text-[0.9rem] text-ink ring-1 ring-line transition-colors hover:text-brand-strong hover:ring-lilac">
+                  {t(s.org)}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
       </PageHero>
 
       <section className="shell space-y-6 pb-24">
@@ -68,7 +80,7 @@ export default async function StoriesPage({ params }: PageProps<"/[locale]/custo
             </div>
           );
           return (
-            <article key={s.id} className="grid items-center gap-8 rounded-[32px] bg-white p-5 ring-1 ring-line sm:p-8 lg:grid-cols-2 lg:gap-14 lg:p-10">
+            <article key={s.id} id={s.id} className="grid items-center gap-8 rounded-[32px] bg-white p-5 ring-1 ring-line sm:p-8 lg:grid-cols-2 lg:gap-14 lg:p-10">
               <div className={flip ? "lg:order-2" : ""}>{media}</div>
               <div>
                 <p className="text-sm text-slate">{s.kind === "sponsorship" ? t(ui.stories.sponsorship) : t(ui.stories.customer)}</p>
@@ -77,7 +89,7 @@ export default async function StoriesPage({ params }: PageProps<"/[locale]/custo
                 <p className="t-body mt-5">{t(s.summary)}</p>
                 {s.quote && (
                   <figure className="mt-7 border-s-2 border-brand ps-5">
-                    <Stars />
+                    <Stars locale={locale} />
                     <blockquote className="mt-3 text-[1.08rem] leading-relaxed text-ink">“{t(s.quote.text)}”</blockquote>
                     <figcaption className="mt-3 text-sm">
                       <span className="font-medium text-ink">{t(s.quote.name)}</span>
@@ -85,7 +97,18 @@ export default async function StoriesPage({ params }: PageProps<"/[locale]/custo
                     </figcaption>
                   </figure>
                 )}
-                <p className="mt-7 text-sm text-slate">{t(ui.stories.soon)}</p>
+                <div className="mt-7 border-t border-line pt-5">
+                  <h3 className="text-sm font-medium text-slate">{t(ui.stories.used)}</h3>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {s.used.map((u) => (
+                      <li key={u.label.en}>
+                        <Link href={href(locale, `/features#${u.module}`)} className="chip h-8 bg-lavender px-3 text-brand-deep transition-colors hover:bg-[#e6dcf4]">
+                          {t(u.label)}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </article>
           );

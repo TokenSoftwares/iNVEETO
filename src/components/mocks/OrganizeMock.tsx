@@ -3,14 +3,9 @@
 import { AnimatePresence, motion } from "motion/react";
 import { Search, CopyCheck, Check } from "lucide-react";
 import { DemoWindow, people, Avatar, useSequence } from "./shared";
+import { fmt, sample, tagLabel } from "./sampleData";
 import { useLocale, useT } from "@/lib/locale-context";
 
-const tags = [
-  [{ en: "Speakers", ar: "متحدثون" }, { en: "Academia", ar: "أكاديميون" }],
-  [{ en: "Partners", ar: "شركاء" }, { en: "Government", ar: "حكومة" }],
-  [{ en: "Donors", ar: "مانحون" }],
-  [{ en: "Venues", ar: "منشآت" }, { en: "Partners", ar: "شركاء" }],
-];
 
 export function OrganizeMock({ active }: { active: boolean }) {
   const t = useT();
@@ -24,7 +19,8 @@ export function OrganizeMock({ active }: { active: boolean }) {
     <DemoWindow title={t({ en: "Address book", ar: "دفتر العناوين" })}>
       <div className="flex items-center gap-2 rounded-xl bg-mist px-3 py-2.5 text-sm text-slate ring-1 ring-line">
         <Search size={15} aria-hidden />
-        <span>{t({ en: "Search name, tag, company or job title", ar: "ابحث بالاسم أو الوسم أو الشركة أو المسمى" })}</span>
+        <span className="min-w-0 flex-1 truncate">{t({ en: "Search name, tag, company or job title", ar: "ابحث بالاسم أو الوسم أو الشركة أو المسمى الوظيفي" })}</span>
+        <span className="shrink-0 text-xs tabular-nums">{t({ en: `${fmt(sample.contacts)} contacts`, ar: `${fmt(sample.contacts)} جهة اتصال` })}</span>
       </div>
 
       <ul className="mt-3 divide-y divide-line">
@@ -46,7 +42,7 @@ export function OrganizeMock({ active }: { active: boolean }) {
               </p>
             </div>
             <div className="hidden flex-wrap justify-end gap-1 sm:flex">
-              {tags[i].map((tg, j) => (
+              {p.tags.map((tg, j) => (
                 <motion.span
                   key={j}
                   initial={false}
@@ -54,7 +50,7 @@ export function OrganizeMock({ active }: { active: boolean }) {
                   transition={{ delay: 0.1 + i * 0.07 + j * 0.05, duration: 0.3 }}
                   className="chip bg-lavender text-brand-deep"
                 >
-                  {t(tg)}
+                  {t(tagLabel[tg])}
                 </motion.span>
               ))}
             </div>

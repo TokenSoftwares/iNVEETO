@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Tabs } from "@heroui/react";
 import { BookUser, CalendarCheck2, Megaphone, ArrowUpRight } from "lucide-react";
 import { modules } from "@/content/features";
-import { whatCanIDo } from "@/content/home";
 import { ui } from "@/content/ui";
 import { href } from "@/content/i18n";
 import { useLocale, useT } from "@/lib/locale-context";
@@ -15,7 +14,7 @@ export function Modules() {
   const t = useT();
   const locale = useLocale();
   return (
-    <section id="modules" className="relative bg-mist py-24 sm:py-32">
+    <section id="modules" className="relative bg-mist pb-16 pt-24 sm:pt-32">
       <div className="shell">
         <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
           <h2 className="t-h2 max-w-[22ch] text-ink">{t(ui.sections.modulesTitle)}</h2>
@@ -54,7 +53,7 @@ export function Modules() {
                     <div key={g.id}>
                       <h3 className="text-sm font-medium text-slate">{t(g.title)}</h3>
                       <ul className="mt-3 space-y-2">
-                        {g.items.slice(0, 5).map((f) => (
+                        {g.items.slice(0, 3).map((f) => (
                           <li key={f.id} className="flex items-start gap-2 text-[0.95rem] text-ink">
                             <span className="mt-2 size-1.5 shrink-0 rounded-full bg-brand" aria-hidden />
                             <span>
@@ -63,9 +62,9 @@ export function Modules() {
                             </span>
                           </li>
                         ))}
-                        {g.items.length > 5 && (
+                        {g.items.length > 3 && (
                           <li className="ps-3.5 text-sm text-slate">
-                            {t({ en: `+ ${g.items.length - 5} more`, ar: `+ ${g.items.length - 5} أخرى` })}
+                            {t({ en: `+ ${g.items.length - 3} more`, ar: `+ ${g.items.length - 3} أخرى` })}
                           </li>
                         )}
                       </ul>
@@ -77,18 +76,6 @@ export function Modules() {
           ))}
         </Tabs>
 
-        <div className="mt-20">
-          <h3 className="t-h3 text-ink">{t(ui.sections.whatCanIDo)}</h3>
-          <ol className="mt-8 grid gap-px overflow-hidden rounded-3xl bg-line ring-1 ring-line md:grid-cols-3">
-            {whatCanIDo.map((w, i) => (
-              <li key={w.id} className="bg-white p-7">
-                <span className="text-sm tabular-nums text-brand">{String(i + 1).padStart(2, "0")}</span>
-                <p className="mt-3 text-lg font-medium text-ink">{t(w.title)}</p>
-                <p className="t-body mt-2">{t(w.body)}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
       </div>
     </section>
   );

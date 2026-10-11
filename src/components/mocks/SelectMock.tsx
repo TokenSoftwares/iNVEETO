@@ -4,32 +4,26 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { Check, Crown, Mic, Bookmark } from "lucide-react";
 import { DemoWindow, people, Avatar, useSequence } from "./shared";
+import { fmt, isInvited, roleLabel, sample, tagLabel, type Role } from "./sampleData";
 import { useLocale, useT } from "@/lib/locale-context";
 
 const filters = [
   { id: "tag", label: { en: "Tag: Partners", ar: "الوسم: شركاء" } },
-  { id: "class", label: { en: "Classification: VIP", ar: "التصنيف: شخصية مهمة" } },
-  { id: "history", label: { en: "Attended: Annual Conference", ar: "حضر: المؤتمر السنوي" } },
+  { id: "history", label: { en: "Attended: Annual Conference 2025", ar: "حضر: المؤتمر السنوي 2025" } },
 ];
 
-const roles = [
-  { icon: Crown, label: { en: "VIP", ar: "شخصية مهمة" } },
-  { icon: Mic, label: { en: "Speaker", ar: "متحدث" } },
-  { icon: Crown, label: { en: "VIP", ar: "شخصية مهمة" } },
-  { icon: null, label: { en: "Guest", ar: "ضيف" } },
-  { icon: Crown, label: { en: "VIP", ar: "شخصية مهمة" } },
-];
+const roleIcon: Record<Role, typeof Crown | null> = { vip: Crown, speaker: Mic, guest: null };
 
 export function SelectMock({ active }: { active: boolean }) {
   const t = useT();
   const locale = useLocale();
-  // 1-3 filters on · 4 rows checked · 5 count
-  const step = useSequence(active, [300, 500, 500, 500, 400]);
+  // 1-2 filters on · 3 rows selected · 4 roles assigned · 5 totals
+  const step = useSequence(active, [300, 500, 600, 600, 400]);
   const [saved, setSaved] = useState(false);
-  const selected = [0, 1, 2, 4];
+  const { vip, speaker, guest } = sample.roles;
 
   return (
-    <DemoWindow title={t({ en: "New invitation list", ar: "قائمة دعوات جديدة" })}>
+    <DemoWindow title={t({ en: `Invitation list · ${sample.event.en}`, ar: `قائمة الدعوات · ${sample.event.ar}` })}>
       <div className="flex flex-wrap gap-2">
         {filters.map((f, i) => {
           const on = step > i;
@@ -47,37 +41,50 @@ export function SelectMock({ active }: { active: boolean }) {
 
       <ul className="mt-4 space-y-1.5">
         {people.map((p, i) => {
-          const isSel = selected.includes(i) && step >= 4;
-          const R = roles[i];
+          const invited = isInvited(p);
+          const isSel = invited && step >= 3;
+          const Icon = roleIcon[p.role];
           return (
             <li
               key={p.id}
               className={`flex items-center gap-3 rounded-xl px-2.5 py-2 transition-all duration-500 ${
-                isSel ? "bg-mist ring-1 ring-lilac" : step >= 4 ? "opacity-45" : ""
+                isSel ? "bg-mist ring-1 ring-lilac" : step >= 3 ? "[&_.avatar]:grayscale" : ""
               }`}
             >
               <span
-                className={`grid size-5 place-items-center rounded-md ring-1 transition-colors ${isSel ? "bg-brand text-white ring-brand" : "bg-white ring-line-strong"}`}
+                className={`grid size-5 shrink-0 place-items-center rounded-md ring-1 transition-colors ${isSel ? "bg-brand text-white ring-brand" : "bg-white ring-line-strong"}`}
                 aria-hidden
               >
                 {isSel && <Check size={13} />}
               </span>
               <Avatar initials={p.initials} tone={i} />
-              <span className="min-w-0 flex-1 truncate text-[0.9rem] text-ink">{p[locale]}</span>
-              <span className="chip bg-lavender text-brand-deep">
-                {R.icon && <R.icon size={12} aria-hidden />}
-                {t(R.label)}
-              </span>
+              <span className={`min-w-0 flex-1 truncate text-[0.9rem] ${!invited && step >= 3 ? "text-slate" : "text-ink"}`}>{p[locale]}</span>
+              {isSel && step >= 4 ? (
+                <motion.span initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} className="chip bg-lavender text-brand-deep">
+                  {Icon && <Icon size={12} aria-hidden />}
+                  {t(roleLabel[p.role])}
+                </motion.span>
+              ) : (
+                <span className="chip bg-white text-slate ring-1 ring-line">{t(tagLabel[p.tags[0]])}</span>
+              )}
             </li>
           );
         })}
       </ul>
 
-      <div className="mt-4 flex items-center justify-between gap-3 border-t border-line pt-4">
-        <motion.p initial={false} animate={{ opacity: step >= 5 ? 1 : 0.3 }} className="text-sm text-ink" aria-live="polite">
-          <span className="text-lg font-semibold tabular-nums text-brand-deep">{step >= 5 ? 38 : 0}</span>{" "}
-          {t({ en: "selected of 1,248 contacts", ar: "محددون من أصل 1,248 جهة اتصال" })}
-        </motion.p>
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
+        <motion.div initial={false} animate={{ opacity: step >= 5 ? 1 : 0.3 }} aria-live="polite">
+          <p className="text-sm text-ink">
+            <span className="text-lg font-semibold tabular-nums text-brand-deep">{step >= 5 ? fmt(sample.selected) : 0}</span>{" "}
+            {t({ en: `selected of ${fmt(sample.contacts)} contacts`, ar: `محددة من أصل ${fmt(sample.contacts)} جهة اتصال` })}
+          </p>
+          <p className="mt-0.5 text-xs tabular-nums text-slate">
+            {t({
+              en: `${vip} VIP · ${speaker} Speakers · ${guest} Guests`,
+              ar: `${vip} شخصية مهمة · ${speaker} متحدثين · ${guest} ضيفًا`,
+            })}
+          </p>
+        </motion.div>
         <button
           type="button"
           onClick={() => setSaved((s) => !s)}

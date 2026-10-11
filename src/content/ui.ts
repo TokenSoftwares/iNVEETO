@@ -8,14 +8,16 @@ export const ui = {
     usecases: { en: "Use cases", ar: "حالات الاستخدام" },
     stories: { en: "Customer stories", ar: "قصص العملاء" },
     pricing: { en: "Pricing", ar: "الأسعار" },
-    faqs: { en: "FAQs", ar: "الأسئلة الشائعة" },
+    faqs: { en: "FAQs", ar: "الأسئلة المتداولة" },
     contact: { en: "Contact", ar: "تواصل معنا" },
     login: { en: "Log in", ar: "تسجيل الدخول" },
     menu: { en: "Menu", ar: "القائمة" },
+    primary: { en: "Main navigation", ar: "التنقل الرئيسي" },
+    home: { en: "iNVEETO home", ar: "الصفحة الرئيسية لإنفيتو" },
     close: { en: "Close menu", ar: "إغلاق القائمة" },
     skip: { en: "Skip to content", ar: "انتقل إلى المحتوى" },
     switchTo: { en: "العربية", ar: "English" },
-    switchLabel: { en: "Switch to Arabic", ar: "التبديل إلى الإنجليزية" },
+    switchLabel: { en: "Language", ar: "اللغة" },
   },
   cta: {
     trial: { en: "Start your free trial", ar: "ابدأ تجربتك المجانية" },
@@ -89,26 +91,33 @@ export const ui = {
     message: { en: "Message", ar: "الرسالة" },
     optional: { en: "optional", ar: "اختياري" },
     submit: { en: "Send inquiry", ar: "أرسل الاستفسار" },
-    submitMail: { en: "Continue in your email app", ar: "تابع في تطبيق البريد" },
     sending: { en: "Sending…", ar: "جارٍ الإرسال…" },
     errName: { en: "Enter your name.", ar: "أدخل اسمك." },
     errEmail: { en: "Enter a valid email address, like name@company.com.", ar: "أدخل بريدًا إلكترونيًا صالحًا، مثل name@company.com." },
     errMessage: { en: "Add a short message of at least 10 characters.", ar: "أضف رسالة قصيرة من 10 أحرف على الأقل." },
     successTitle: { en: "Inquiry sent", ar: "تم إرسال الاستفسار" },
     successBody: { en: "Thanks. The iNVEETO team will reply to the email you entered.", ar: "شكرًا لك. سيرد فريق إنفيتو على البريد الذي أدخلته." },
-    mailtoTitle: { en: "Your email app should open", ar: "يُفترض أن يفتح تطبيق البريد" },
-    mailtoBody: {
-      en: "Your message is pre-filled to info@inveeto.com. Send it from there. Nothing opened? Copy the address and email us directly.",
-      ar: "رسالتك معبأة مسبقًا إلى info@inveeto.com. أرسلها من هناك. لم يُفتح شيء؟ انسخ العنوان وراسلنا مباشرة.",
-    },
-    errorTitle: { en: "The inquiry didn't send", ar: "لم يُرسل الاستفسار" },
+    errorTitle: { en: "The inquiry didn't send", ar: "لم يُرسَل الاستفسار" },
     errorBody: {
-      en: "The connection to our inbox failed. Try again, or email info@inveeto.com directly.",
-      ar: "فشل الاتصال بصندوق بريدنا. حاول مجددًا، أو راسلنا مباشرة على info@inveeto.com.",
+      en: "Our inbox didn't accept it. Try again in a moment, or email info@inveeto.com directly.",
+      ar: "لم يستقبل صندوق بريدنا الرسالة. حاول مجددًا بعد قليل، أو راسلنا مباشرة على info@inveeto.com.",
     },
-    mailtoNote: {
-      en: "This form opens your email app with your message ready to send to info@inveeto.com.",
-      ar: "يفتح هذا النموذج تطبيق البريد لديك مع رسالتك جاهزة للإرسال إلى info@inveeto.com.",
+    rateTitle: { en: "Too many inquiries in a short time", ar: "عدد كبير من الاستفسارات خلال وقت قصير" },
+    rateBody: {
+      en: "Wait ten minutes and send it again, or email info@inveeto.com.",
+      ar: "انتظر عشر دقائق ثم أعد الإرسال، أو راسلنا على info@inveeto.com.",
+    },
+    fixFields: { en: "Check the highlighted fields and send again.", ar: "راجع الحقول المحددة ثم أعد الإرسال." },
+    privacy: {
+      en: "We use these details only to reply to your inquiry.",
+      ar: "نستخدم هذه البيانات فقط للرد على استفسارك.",
+    },
+    privacyLink: { en: "Privacy policy", ar: "سياسة الخصوصية" },
+    sendAnother: { en: "Send another inquiry", ar: "أرسل استفسارًا آخر" },
+    emailTitle: { en: "Email the iNVEETO team", ar: "راسل فريق إنفيتو" },
+    emailBody: {
+      en: "Write to the team that handles your question. Replies usually arrive the same day.",
+      ar: "راسل الفريق المختص بسؤالك. يصلك الرد عادةً في اليوم نفسه.",
     },
   },
   footer: {
@@ -120,8 +129,8 @@ export const ui = {
     feedback: { en: "Feedback", ar: "الملاحظات" },
     rights: { en: "© 2026 iNVEETO. All rights reserved.", ar: "© 2026 إنفيتو. جميع الحقوق محفوظة." },
     blurb: {
-      en: "Event, contact and campaign management. Organize. Select. Invite. Confirm.",
-      ar: "إدارة الفعاليات وجهات الاتصال والحملات. نظّم. حدّد. ادعو. تأكّد",
+      en: "Event, contact and campaign management.",
+      ar: "إدارة الفعاليات وجهات الاتصال والحملات.",
     },
   },
   features: {
@@ -132,15 +141,16 @@ export const ui = {
     newOnly: { en: "New only", ar: "الجديد فقط" },
     newBadge: { en: "New", ar: "جديد" },
     results: { en: "features", ar: "ميزة" },
-    empty: { en: "No feature matches that search. Try a broader word, or clear the filters.", ar: "لا توجد ميزة تطابق هذا البحث. جرّب كلمة أعم أو امسح الفلاتر." },
-    clear: { en: "Clear filters", ar: "امسح الفلاتر" },
+    empty: { en: "No feature matches that search. Try a broader word, or clear the filters.", ar: "لا توجد ميزة تطابق هذا البحث. جرّب كلمة أعم أو امسح عوامل التصفية." },
+    clear: { en: "Clear filters", ar: "امسح عوامل التصفية" },
   },
   stories: {
     customer: { en: "Customer story", ar: "قصة عميل" },
     sponsorship: { en: "Event tech sponsorship", ar: "رعاية تقنية" },
-    soon: { en: "Full story coming soon", ar: "القصة الكاملة قريبًا" },
+    used: { en: "What they used", ar: "ما استخدموه" },
+    index: { en: "Stories on this page", ar: "القصص في هذه الصفحة" },
     verified: { en: "Verified customer stories", ar: "قصص عملاء حقيقية" },
-    watch: { en: "Watch PLEX 2026 with iNVEETO in action", ar: "شاهد PLEX 2026 مع إنفييتو في التطبيق" },
+    watch: { en: "Watch PLEX 2026 with iNVEETO in action", ar: "شاهد إنفيتو أثناء العمل في PLEX 2026" },
   },
   pricing: {
     individual: { en: "Individual", ar: "فرد" },
@@ -152,7 +162,7 @@ export const ui = {
   usecases: {
     filter: { en: "Filter by industry", ar: "تصفية حسب القطاع" }, // AR: official
     all: { en: "All industries", ar: "جميع القطاعات" }, // AR: official
-    why: { en: "Built for how your organization actually works", ar: "مصمم ليتناسب مع طريقة عمل مؤسستك فعلياً" }, // AR: official
+    why: { en: "Built for how your organization actually works", ar: "مصمم ليتناسب مع طريقة عمل مؤسستك فعليًا" }, // AR: official
     venuesHow: { en: "How venue teams put iNVEETO to work", ar: "كيف تستخدم فرق المنشآت إنفيتو" },
     venuesGain: { en: "What venue teams gain with iNVEETO", ar: "ما تكسبه فرق المنشآت مع إنفيتو" },
     venuesWhy: { en: "Built for how venue teams actually coordinate", ar: "مصمم لطريقة تنسيق فرق المنشآت فعليًا" },

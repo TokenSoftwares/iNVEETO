@@ -32,7 +32,7 @@ export default function NetworkScene({ count, quality, running }: Props) {
       frameloop={running ? "always" : "never"}
       dpr={dpr}
       camera={{ position: [0, 0, 10], fov: 35, near: 0.1, far: 50 }}
-      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      gl={{ antialias: quality === "high", alpha: true, powerPreference: "high-performance" }}
       style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
       aria-hidden
     >
@@ -100,6 +100,9 @@ function Network({ count, quality }: Omit<Props, "running">) {
   useFrame((state, rawDt) => {
     const dt = Math.min(rawDt, 1 / 20);
     const t = state.clock.elapsedTime;
+    // Opening moment: the network blooms out from its centre while the headline reveals.
+    const b0 = Math.min(1, Math.max(0, (t - 0.1) / 2.1));
+    const bloom = storyState.reduced ? 1 : 1 - Math.pow(1 - b0, 3);
     const reduced = storyState.reduced;
     const s = Math.min(STAGES - 1, Math.max(0, storyState.stage));
     const i0 = Math.floor(s);
@@ -190,7 +193,7 @@ function Network({ count, quality }: Omit<Props, "running">) {
       ea.array[e * 3 + 2] = P[src + 2];
     }
     ea.needsUpdate = true;
-    (edges.current!.material as THREE.LineBasicMaterial).opacity = live.edgeOpacity;
+    (edges.current!.material as THREE.LineBasicMaterial).opacity = live.edgeOpacity * bloom * bloom;
     edges.current!.visible = live.edgeOpacity > 0.005;
 
     live.sameOpacity += (A.sameOpacity + (B.sameOpacity - A.sameOpacity) * f - live.sameOpacity) * k;
@@ -225,7 +228,7 @@ function Network({ count, quality }: Omit<Props, "running">) {
     spokes.current!.visible = live.spokeOpacity > 0.005;
 
     // Hero labels: project each hub to screen space and move its DOM label there.
-    const labelOpacity = 1 - smoothstep(0.05, 0.45, s);
+    const labelOpacity = (1 - smoothstep(0.05, 0.45, s)) * smoothstep(0.75, 1, bloom);
     const { width, height } = state.size;
     storyState.labelEls.forEach((el, h) => {
       const m = hubs.current[h];
@@ -251,6 +254,10 @@ function Network({ count, quality }: Omit<Props, "running">) {
       o.rotation.x += (-storyState.pointerY * 0.14 - o.rotation.x) * (1 - Math.exp(-dt * 2));
       const spin = s < 1.2 || s > 6.5 ? 0.06 : s > 3.5 && s < 4.6 ? 0.12 : 0.015;
       inner.current!.rotation.y += dt * spin;
+    }
+    inner.current!.scale.setScalar(0.001 + bloom);
+    if (!reduced) {
+      inner.current!.rotation.z = (1 - bloom) * 0.5;
     }
   });
 

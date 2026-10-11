@@ -1,6 +1,6 @@
 import { HeroStory } from "@/components/home/HeroStory";
 import { Modules } from "@/components/home/Modules";
-import { Highlights } from "@/components/home/Highlights";
+import { WhatsNew } from "@/components/home/WhatsNew";
 import { Industries } from "@/components/home/Industries";
 import { StoriesTeaser } from "@/components/home/StoriesTeaser";
 import { Benefits, PricingTeaser } from "@/components/home/PlatformAndPricing";
@@ -16,7 +16,9 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     <>
       <HeroStory />
       <Modules />
-      <Highlights />
+      <div className="bg-mist">
+        <WhatsNew />
+      </div>
       <Industries />
       <StoriesTeaser locale={locale} />
       <Benefits locale={locale} />

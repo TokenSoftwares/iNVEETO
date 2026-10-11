@@ -3,6 +3,7 @@ import { ui } from "@/content/ui";
 import { site } from "@/content/site";
 import { tr, type Locale, type T } from "@/content/i18n";
 import { ContactForm } from "@/components/ui/ContactForm";
+import { isInquiryConfigured } from "@/lib/inquiry/delivery";
 import { LinkButton } from "@/components/ui/LinkButton";
 
 export function ContactChannels({ locale }: { locale: Locale }) {
@@ -14,7 +15,7 @@ export function ContactChannels({ locale }: { locale: Locale }) {
     { icon: MessageCircle, label: t(ui.contact.whatsapp), value: site.contact.whatsappDisplay, to: site.contact.whatsappUrl },
   ];
   return (
-    <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+    <ul className="grid gap-3 sm:grid-cols-2">
       {channels.map((c) => (
         <li key={c.value}>
           <a href={c.to} className="group flex items-center gap-4 rounded-2xl bg-white p-4 ring-1 ring-line transition hover:ring-brand">
@@ -34,28 +35,58 @@ export function ContactChannels({ locale }: { locale: Locale }) {
   );
 }
 
+function FeedbackCard({ locale }: { locale: Locale }) {
+  const t = (v: T) => tr(v, locale);
+  return (
+    <div className="rounded-2xl bg-mist p-5 ring-1 ring-line">
+      <p className="font-medium text-ink">{t(ui.contact.feedbackTitle)}</p>
+      <p className="t-body mt-1 text-[0.95rem]">{t(ui.contact.feedbackBody)}</p>
+      <a href={site.links.feedbackForm} className="text-link mt-3 inline-flex items-center gap-1 text-[0.95rem]">
+        {t(ui.contact.feedbackCta)} <ArrowUpRight size={15} aria-hidden className="rtl:-scale-x-100" />
+      </a>
+    </div>
+  );
+}
+
+/**
+ * Contact block shared by the homepage and /contact.
+ * With an inquiry provider configured: channels + feedback on one side, the form on the other.
+ * Without one: the official channels take the form's place, so nothing non-working is shown.
+ */
+export function ContactBlock({ locale, intro }: { locale: Locale; intro?: React.ReactNode }) {
+  const configured = isInquiryConfigured();
+  return (
+    <div className="grid gap-12 lg:grid-cols-[0.9fr_1.3fr]">
+      <div>
+        {intro}
+        {configured && (
+          <div className={intro ? "mt-8" : ""}>
+            <ContactChannels locale={locale} />
+          </div>
+        )}
+        <div className={intro || configured ? "mt-8" : ""}>
+          <FeedbackCard locale={locale} />
+        </div>
+      </div>
+      <div id="contact-form">{configured ? <ContactForm configured /> : <ContactChannels locale={locale} />}</div>
+    </div>
+  );
+}
+
 export function ContactSection({ locale }: { locale: Locale }) {
   const t = (v: T) => tr(v, locale);
   return (
     <section id="contact-us" className="py-24 sm:py-32">
-      <div className="shell grid gap-12 lg:grid-cols-[0.9fr_1.3fr]">
-        <div>
-          <h2 className="t-h2 text-ink">{t(ui.sections.contactTitle)}</h2>
-          <p className="t-lead mt-4 max-w-[28rem]">{t(ui.sections.contactBody)}</p>
-          <div className="mt-8">
-            <ContactChannels locale={locale} />
-          </div>
-          <div className="mt-8 rounded-2xl bg-mist p-5 ring-1 ring-line">
-            <p className="font-medium text-ink">{t(ui.contact.feedbackTitle)}</p>
-            <p className="t-body mt-1 text-[0.95rem]">{t(ui.contact.feedbackBody)}</p>
-            <a href={site.links.feedbackForm} className="text-link mt-3 inline-flex items-center gap-1 text-[0.95rem]">
-              {t(ui.contact.feedbackCta)} <ArrowUpRight size={15} aria-hidden className="rtl:-scale-x-100" />
-            </a>
-          </div>
-        </div>
-        <div id="contact-form">
-          <ContactForm />
-        </div>
+      <div className="shell">
+        <ContactBlock
+          locale={locale}
+          intro={
+            <>
+              <h2 className="t-h2 text-ink">{t(ui.sections.contactTitle)}</h2>
+              <p className="t-lead mt-4 max-w-[28rem]">{t(ui.sections.contactBody)}</p>
+            </>
+          }
+        />
       </div>
     </section>
   );

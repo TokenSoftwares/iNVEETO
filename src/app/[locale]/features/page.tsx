@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero, Stats } from "@/components/pages/PageHero";
 import { FeatureExplorer } from "@/components/pages/FeatureExplorer";
+import { AtAGlance } from "@/components/pages/AtAGlance";
 import { FinalCta } from "@/components/home/ContactSection";
 import { LinkButton } from "@/components/ui/LinkButton";
 import { featuresHero, sharedCapabilities, workflow } from "@/content/features";
@@ -25,6 +26,8 @@ export default async function FeaturesPage({ params }: PageProps<"/[locale]/feat
         </div>
         <Stats items={featuresHero.stats.map((s) => ({ value: s.value, label: t(s.label) }))} />
       </PageHero>
+
+      <AtAGlance locale={locale} title={t({ en: "At a glance", ar: "نظرة سريعة" })} />
 
       <section className="shell pb-24">
         <FeatureExplorer />

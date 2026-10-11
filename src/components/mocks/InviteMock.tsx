@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import { DemoWindow, useSequence } from "./shared";
+import { fmt, sample } from "./sampleData";
 import { useLocale, useT } from "@/lib/locale-context";
 import type { Locale } from "@/content/i18n";
 
@@ -32,11 +33,11 @@ export function InviteMock({ active }: { active: boolean }) {
   const step = useSequence(active, [300, 900, 600]);
   const c = copy[lang];
   const tallies = [
-    { label: { en: "Confirmed", ar: "مؤكد" }, value: 247, cls: "bg-brand" },
-    { label: { en: "Pending", ar: "قيد الانتظار" }, value: 38, cls: "bg-[#e0a43b]" },
-    { label: { en: "Apologized", ar: "معتذر" }, value: 14, cls: "bg-no" },
+    { label: { en: "Confirmed", ar: "مؤكد" }, value: sample.rsvp.confirmed, cls: "bg-brand" },
+    { label: { en: "Pending", ar: "قيد الانتظار" }, value: sample.rsvp.pending, cls: "bg-[#e0a43b]" },
+    { label: { en: "Apologized", ar: "معتذر" }, value: sample.rsvp.apologized, cls: "bg-no" },
   ];
-  const max = 299;
+  const max = sample.selected; // 247 + 38 + 15 = 300 invited
 
   return (
     <DemoWindow
@@ -83,7 +84,10 @@ export function InviteMock({ active }: { active: boolean }) {
         <div className="border-t border-line bg-mist px-4 py-2 text-[0.7rem] text-slate">{lang === "en" ? "Custom footer · Sent from events@yourdomain.org" : "تذييل مخصص · أُرسلت من events@yourdomain.org"}</div>
       </motion.div>
 
-      <div className="mt-4 space-y-2.5" aria-live="polite">
+      <p className="mt-4 text-xs tabular-nums text-slate">
+        {t({ en: `RSVPs from ${fmt(sample.selected)} invited guests`, ar: `الردود من ${fmt(sample.selected)} ضيف مدعو` })}
+      </p>
+      <div className="mt-2 space-y-2.5" aria-live="polite">
         {tallies.map((r, i) => (
           <div key={i} className="grid grid-cols-[6.5rem_1fr_2.5rem] items-center gap-3 text-sm">
             <span className="text-slate">{t(r.label)}</span>

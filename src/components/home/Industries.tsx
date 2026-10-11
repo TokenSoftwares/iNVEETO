@@ -8,6 +8,7 @@ import { industries } from "@/content/usecases";
 import { ui } from "@/content/ui";
 import { href } from "@/content/i18n";
 import { useLocale, useT } from "@/lib/locale-context";
+import { SafeImg } from "@/components/ui/SafeImg";
 
 export function Industries() {
   const t = useT();
@@ -74,8 +75,7 @@ export function Industries() {
                 className="grid md:grid-cols-[1.1fr_1fr]"
               >
                 <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[380px]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={current.image} alt={t(current.alt)} className="absolute inset-0 size-full object-cover" loading="lazy" />
+                  <SafeImg src={current.image} alt={t(current.alt)} className="absolute inset-0 size-full object-cover" />
                   <span className="chip absolute start-4 top-4 bg-white/90 text-brand-deep backdrop-blur">{t(current.tag)}</span>
                 </div>
                 <div className="flex flex-col p-7 sm:p-8">

@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
       template: "%s | iNVEETO",
     },
     description: ar
-      ? "نظّم. حدّد. ادعو. تأكّد. منصة واحدة لإدارة جهات الاتصال والفعاليات والحملات بالعربية والإنجليزية."
+      ? "نظّم. حدّد. ادعُ. تأكّد. منصة واحدة لإدارة جهات الاتصال والفعاليات والحملات بالعربية والإنجليزية."
       : "Organize. Select. Invite. Confirm. One platform for contacts, events and campaigns, in English and Arabic.",
     alternates: { languages: { en: "/en", ar: "/ar" } },
     icons: { icon: site.logo.icon },

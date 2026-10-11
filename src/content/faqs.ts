@@ -64,7 +64,7 @@ export const faqs: Faq[] = [
     },
     a: {
       en: "iNVEETO can cover all types of events, from fully controlled to completely open events.",
-      ar: "يغطي إنفيتو جميع أنواع الفعاليات، من الفعاليات المحكومة بالكامل إلى الفعاليات المفتوحة.",
+      ar: "يغطي إنفيتو جميع أنواع الفعاليات، من الفعاليات المغلقة ذات الدخول المحدد إلى الفعاليات المفتوحة للجميع.",
     },
   },
   {

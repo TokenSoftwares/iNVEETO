@@ -94,17 +94,17 @@ export function Header() {
               : "bg-transparent"
           }`}
         >
-          <Link href={href(locale)} className="shrink-0 rounded-lg" aria-label="iNVEETO home">
+          <Link href={href(locale)} className="shrink-0 rounded-lg" aria-label={t(ui.nav.home)}>
             <Logo className="h-7 sm:h-8" />
           </Link>
 
-          <nav aria-label="Primary" className="ms-4 hidden flex-1 items-center gap-1 lg:flex">
+          <nav aria-label={t(ui.nav.primary)} className="ms-4 hidden flex-1 items-center gap-0.5 xl:flex">
             {nav.map((n) => (
               <Link
                 key={n.to}
                 href={n.to}
                 aria-current={isActive(n.to) ? "page" : undefined}
-                className="rounded-full px-3.5 py-2 text-[0.92rem] text-slate transition-colors hover:bg-mist hover:text-ink aria-[current=page]:text-brand-strong"
+                className="whitespace-nowrap rounded-full px-3 py-2 text-[0.92rem] text-slate transition-colors hover:bg-mist hover:text-ink aria-[current=page]:bg-mist aria-[current=page]:text-brand-strong"
               >
                 {n.label}
               </Link>
@@ -116,13 +116,13 @@ export function Header() {
               href={switchHref}
               hrefLang={other}
               lang={other}
-              aria-label={t(ui.nav.switchLabel)}
-              className="btn btn-quiet btn-sm gap-1.5 text-[0.9rem]"
+              className="btn btn-quiet btn-sm gap-1.5 whitespace-nowrap text-[0.9rem]"
             >
               <Languages size={16} aria-hidden className="text-brand" />
+              <span className="sr-only">{t(ui.nav.switchLabel)}: </span>
               {t(ui.nav.switchTo)}
             </Link>
-            <a href={site.links.login} className="btn btn-quiet btn-sm hidden text-[0.9rem] sm:inline-flex">
+            <a href={site.links.login} className="btn btn-quiet btn-sm hidden whitespace-nowrap text-[0.9rem] sm:inline-flex">
               {t(ui.nav.login)}
             </a>
             <LinkButton href={site.links.trial} size="sm" magnetic className="hidden md:inline-flex">
@@ -131,7 +131,7 @@ export function Header() {
             <button
               ref={menuBtn}
               type="button"
-              className="btn btn-quiet btn-sm !px-2.5 lg:hidden"
+              className="btn btn-quiet btn-sm !px-2.5 xl:hidden"
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? t(ui.nav.close) : t(ui.nav.menu)}
@@ -154,9 +154,9 @@ export function Header() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto mt-2 max-w-[1240px] rounded-2xl bg-white p-3 shadow-lift ring-1 ring-line lg:hidden"
+              className="mx-auto mt-2 max-h-[calc(100svh-6rem)] max-w-[1240px] overflow-y-auto rounded-2xl bg-white p-3 shadow-lift ring-1 ring-line xl:hidden"
             >
-              <nav aria-label="Mobile" className="flex flex-col">
+              <nav aria-label={t(ui.nav.menu)} className="flex flex-col sm:grid sm:grid-cols-2">
                 {nav.map((n) => (
                   <Link
                     key={n.to}

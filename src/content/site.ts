@@ -43,10 +43,6 @@ export const site = {
     whatsappUrl: "https://wa.me/962797840535",
   },
 
-  /**
-   * Optional: POST endpoint for the inquiry form (e.g. Formspree, a Next route
-   * handler wired to email, or a CRM webhook). When empty, the form validates and
-   * then opens the visitor's email app with a pre-filled message to `contact.general`.
-   */
-  inquiryEndpoint: process.env.NEXT_PUBLIC_INQUIRY_ENDPOINT ?? "",
+  // Inquiry form delivery is configured with server-side environment variables;
+  // see src/lib/inquiry/delivery.ts and README "Inquiry form".
 } as const;
